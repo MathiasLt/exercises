@@ -1,0 +1,95 @@
+(USE vacation)
+
+SELECT guestname, guestaddress FROM guest WHERE guestaddress LIKE '%London' ORDER BY guestname DESC;
+#	guestname	guestaddress
+	Mike Ritchie	18 Tain St, London
+	John Kay	56 High St, London
+
+SELECT * FROM room WHERE (type = 'double' OR type = 'family') AND price < 40.00 ORDER BY price ASC;
+#	roomno	hotelno	type	price
+	801	ch02	double	15.00
+	601	fb01	double	29.00
+	1001	dc01	double	30.00
+	1101	dc01	family	35.00
+	701	fb01	family	39.00
+
+SELECT * FROM booking WHERE dateto IS NULL;
+#	hotelno	guestno	datefrom	dateto	roomno
+	ch01	10006	2004-04-21		1101
+	dc01	10003	2004-05-20		1001
+	fb01	10001	2004-05-01		701
+
+SELECT avg(price) AS average FROM room;
+#	average
+	35.748333
+
+SELECT sum(price) AS 'total revenue' FROM room WHERE type = 'double';
+#	total revenue
+	160.00
+
+SELECT COUNT(DISTINCT(guestno)) FROM booking WHERE month(datefrom) = 8;
+#	COUNT(DISTINCT(guestno))
+	0
+
+SELECT type, price, hotelname FROM room JOIN hotel ON room.hotelno = hotel.hotelno HAVING hotelname = 'The Tower Hotel';
+#	type	price	hotelname
+	single	19.00	The Tower Hotel
+
+SELECT DISTINCT(guestname) FROM guest JOIN booking ON guest.guestno = booking.guestno JOIN hotel ON booking.hotelno = hotel.hotelno WHERE hotelname = 'The Tower Hotel';
+#	guestname
+	John Kay
+	Mike Ritchie
+	Joe Keogh
+	Carol Farrel
+
+SELECT room.*, guest.guestname FROM room JOIN booking ON room.roomno = booking.roomno JOIN guest ON booking.guestno = guest.guestno WHERE dateto IS NULL;
+#	roomno	hotelno	type	price	guestname
+	1101	ch01	family	59.99	Tina Murphy
+	1101	dc01	family	35.00	Tina Murphy
+	1101	fb02	double	86.00	Tina Murphy
+	1001	ch01	single	29.99	Mary Tregear
+	1001	dc01	double	30.00	Mary Tregear
+	1001	fb02	single	58.00	Mary Tregear
+	701	ch02	single	10.00	John Kay
+	701	fb01	family	39.00	John Kay
+
+SELECT sum(price) FROM room JOIN booking ON room.roomno = booking.roomno JOIN hotel ON booking.hotelno = hotel.hotelno WHERE hotel.hotelname = 'The Tower Hotel';
+#	sum(price)
+	145.00
+
+SELECT room.roomno FROM room JOIN booking ON room.roomno = booking.roomno JOIN hotel ON booking.hotelno = hotel.hotelno WHERE booking.dateto IS NOT NULL AND hotel.hotelname = 'The Tower Hotel'GROUP BY roomno;
+#	roomno
+	501
+	601
+
+
+SELECT SUM(DISTINCT(price)) AS 'lost income' FROM room JOIN booking ON room.roomno = booking.roomno JOIN hotel ON booking.hotelno = hotel.hotelno WHERE booking.dateto IS NOT NULL AND hotel.hotelname = 'The Tower Hotel'; 
+#	lost income
+	48.00
+
+SELECT hotelname, count(*) AS 'number of rooms' FROM room JOIN booking ON room.roomno = booking.roomno JOIN hotel ON booking.hotelno = hotel.hotelno WHERE city = 'London' GROUP BY hotelname;
+#	hotelname	number of rooms
+	Omni Shoreham	3
+	Phoenix Park	1
+	The Tower Hotel	6
+
+SELECT room.type, count(*) AS 'times booked' FROM room JOIN booking ON room.roomno = booking.roomno JOIN hotel ON booking.hotelno = hotel.hotelno WHERE city = 'London' GROUP BY room.type LIMIT 1;
+#	type	times booked
+	double	4
+
+UPDATE room SET price = price * 1.05;
+SELECT * FROM room;
+	'501', 'fb01', 'single', '19.95'
+	'601', 'fb01', 'double', '30.45'
+	'701', 'ch02', 'single', '10.50'
+	'701', 'fb01', 'family', '40.95'
+	'801', 'ch02', 'double', '15.75'
+	'901', 'dc01', 'single', '18.90'
+	'1001', 'ch01', 'single', '31.49'
+	'1001', 'dc01', 'double', '31.50'
+	'1001', 'fb02', 'single', '60.90'
+	'1101', 'ch01', 'family', '62.99'
+	'1101', 'dc01', 'family', '36.75'
+	'1101', 'fb02', 'double', '90.30'
+
+
