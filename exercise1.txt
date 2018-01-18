@@ -1,0 +1,6 @@
+mkdir exercises
+git init
+git add exercise1.txt
+git commit -m 'add exercise1.txt'
+git remote add origin https://github.com/MathiasLt/exercises.git
+git push -u origin master
