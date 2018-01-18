@@ -1,0 +1,35 @@
+UNF	Group all data in one table
+
+Hospital(PatientNo, FullName, BedNo, WardNo, WardName, DrugNo, DrugName, Description, Dosage, MethodOfAdmin, UnitsPerDay, StartDate, FinishDate)
+
+1NF	Group repetitive data in separate tables
+
+Hospital(PatientNo, FullName, BedNo, WardNo, DrugNo, UnitsPerDay, StartDate, FinishDate)
+Ward_info(WardNo, WardName)
+Drug_info(DrugNo, DrugName, Description, Dosage, MethodOfAdmin)
+
+2NF	Group related data in seperate tables
+
+Hospital(PatientNo, BedNo, WardNo, DrugNo, TreatmentNo)
+Patient_info(PatientNo, FullName, BedNo)
+Ward_info(WardNo, WardName)
+Drug_info(DrugNo, DrugName, Description, Dosage, MethodOfAdmin)
+Treatment_info(UnitsPerDay, StartDate, FinishDate)
+
+3NF	Every non-prime attribute is non-transitively dependent on every key
+
+Hospital(PatientNo, BedNo, WardNo, DrugNo, StartDate)
+Patient_info(PatientNo,	FullName, BedNo)
+Ward_info(WardNo, WardName)
+Drug_info(DrugNo, DrugName, Description, Dosage, MethodOfAdmin)
+Treatment_info(UnitsPerDay, StartDate, FinishDate)
+
+
+BCNF
+
+Hospital(PatientNo, BedNo, WardNo, DrugNo, StartDate)
+Patient_info(PatientNo, FullName, BedNo)
+Ward_info(WardNo, WardName)
+Drug_info(DrugNo, DrugName, Description, Dosage, MethodOfAdmin)
+Treatment_Duration(TreatmentNo, StartDate, FinishDate)
+Treatment_info(TreatmentNo, UnitsPerDay)
