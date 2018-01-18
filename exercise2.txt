@@ -1,0 +1,15 @@
+UNF		Dentist(staffNo, dentistName, patientNo, patientName, (appointmentdate, appointmenttime, surgeryNo))
+
+1NF		Dentist_info(staffNo, dentistName, patientNo, patientName)
+		Appointment_info(patientNo, appointmentdate, appointmenttime, surgeryNo)
+
+2NF		Dentist_info(staffNo, dentistName)
+		Patient_info(patientNo, patientName)
+		Appointment_info(appointmentdate, appointmenttime, patientNo, staffNo, surgeryNo)
+
+3NF		Dentist_info(staffNo, dentistName)
+		Patient_info(patientNo, patientName)
+		Appointment_info(appointment_id, appointmentdate, appointmenttime)
+		Procedure_info(appointment_id, staffNo, patientNo, surgeryNo)
+
+BCNF		3NF
