@@ -1,0 +1,1005 @@
+### querry 1 ###
+db.restaurant.find(
+	{
+	},
+	{
+		restaurant_id:1,
+		name:1,
+		borough:1,
+		cuisine:1
+		,_id:0
+	}
+)
+
+#-- output 1 --#
+/* 1 */
+{
+    "borough" : "Brooklyn",
+    "cuisine" : "American ",
+    "name" : "Riviera Caterer",
+    "restaurant_id" : "40356018"
+}
+
+/* 2 */
+{
+    "borough" : "Brooklyn",
+    "cuisine" : "Hamburgers",
+    "name" : "Wendy'S",
+    "restaurant_id" : "30112340"
+}
+
+/* 3 */
+{
+    "borough" : "Manhattan",
+    "cuisine" : "Irish",
+    "name" : "Dj Reynolds Pub And Restaurant",
+    "restaurant_id" : "30191841"
+}
+
+/* ... */
+
+
+### querry 2 ###
+db.restaurant.find(
+	{
+		borough: "Bronx"
+	},
+	{
+		name:1,
+		borough:1,
+		_id:0
+	}
+)
+.skip(5)
+.limit(5)
+
+#-- output 2 --#
+/* 1 */
+{
+    "borough" : "Bronx",
+    "name" : "Manhem Club"
+}
+
+/* 2 */
+{
+    "borough" : "Bronx",
+    "name" : "The New Starling Athletic Club Of The Bronx"
+}
+
+/* 3 */
+{
+    "borough" : "Bronx",
+    "name" : "Yankee Tavern"
+}
+
+/* 4 */
+{
+    "borough" : "Bronx",
+    "name" : "Mcdwyers Pub"
+}
+
+/* 5 */
+{
+    "borough" : "Bronx",
+    "name" : "The Punch Bowl"
+}
+
+
+### querry 3 ###
+db.restaurant.find(
+	{
+		'grades.score': { $gt: 90}
+	},
+	{
+		grades:1,
+		name:1,
+		_id:0
+	}
+)
+
+#-- output 3 --#
+/* 1 */
+{
+    "grades" : [ 
+        {
+            "date" : ISODate("2014-08-22T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 11
+        }, 
+        {
+            "date" : ISODate("2014-03-28T00:00:00.000Z"),
+            "grade" : "C",
+            "score" : 131
+        }, 
+        {
+            "date" : ISODate("2013-09-25T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 11
+        }, 
+        {
+            "date" : ISODate("2013-04-08T00:00:00.000Z"),
+            "grade" : "B",
+            "score" : 25
+        }, 
+        {
+            "date" : ISODate("2012-10-15T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 11
+        }, 
+        {
+            "date" : ISODate("2011-10-19T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 13
+        }
+    ],
+    "name" : "Murals On 54/Randolphs'S"
+}
+
+/* 2 */
+{
+    "grades" : [ 
+        {
+            "date" : ISODate("2014-09-15T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 5
+        }, 
+        {
+            "date" : ISODate("2014-01-14T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 8
+        }, 
+        {
+            "date" : ISODate("2013-05-30T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 12
+        }, 
+        {
+            "date" : ISODate("2013-04-24T00:00:00.000Z"),
+            "grade" : "P",
+            "score" : 2
+        }, 
+        {
+            "date" : ISODate("2012-10-01T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 9
+        }, 
+        {
+            "date" : ISODate("2012-04-06T00:00:00.000Z"),
+            "grade" : "C",
+            "score" : 92
+        }, 
+        {
+            "date" : ISODate("2011-11-03T00:00:00.000Z"),
+            "grade" : "C",
+            "score" : 41
+        }
+    ],
+    "name" : "Gandhi"
+}
+
+/* 3 */
+{
+    "grades" : [ 
+        {
+            "date" : ISODate("2014-12-24T00:00:00.000Z"),
+            "grade" : "Z",
+            "score" : 31
+        }, 
+        {
+            "date" : ISODate("2014-06-17T00:00:00.000Z"),
+            "grade" : "C",
+            "score" : 98
+        }, 
+        {
+            "date" : ISODate("2013-12-12T00:00:00.000Z"),
+            "grade" : "C",
+            "score" : 32
+        }, 
+        {
+            "date" : ISODate("2013-05-22T00:00:00.000Z"),
+            "grade" : "B",
+            "score" : 21
+        }, 
+        {
+            "date" : ISODate("2012-05-02T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 11
+        }
+    ],
+    "name" : "Bella Napoli"
+}
+
+
+
+### querry 4 ###
+db.restaurant.find(
+    {
+        'grades.score': { $gt: 70},
+        'cuisine': { $nin: ["American ", "Chinese"] },
+        'address.coord.0': { $lt: -65.754168},
+    },
+    {
+        'address.coord':1,
+        cuisine:1,
+        grades:1,
+        name:1,
+        _id:0
+     }
+)
+
+
+#-- output 4 --#
+
+/* 1 */
+{
+    "address" : {
+        "coord" : [ 
+            -73.9864626, 
+            40.7266739
+        ]
+    },
+    "cuisine" : "Indian",
+    "grades" : [ 
+        {
+            "date" : ISODate("2014-09-15T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 5
+        }, 
+        {
+            "date" : ISODate("2014-01-14T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 8
+        }, 
+        {
+            "date" : ISODate("2013-05-30T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 12
+        }, 
+        {
+            "date" : ISODate("2013-04-24T00:00:00.000Z"),
+            "grade" : "P",
+            "score" : 2
+        }, 
+        {
+            "date" : ISODate("2012-10-01T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 9
+        }, 
+        {
+            "date" : ISODate("2012-04-06T00:00:00.000Z"),
+            "grade" : "C",
+            "score" : 92
+        }, 
+        {
+            "date" : ISODate("2011-11-03T00:00:00.000Z"),
+            "grade" : "C",
+            "score" : 41
+        }
+    ],
+    "name" : "Gandhi"
+}
+
+/* 2 */
+{
+    "address" : {
+        "coord" : [ 
+            -73.984758, 
+            40.7457939
+        ]
+    },
+    "cuisine" : "Pizza/Italian",
+    "grades" : [ 
+        {
+            "date" : ISODate("2014-12-24T00:00:00.000Z"),
+            "grade" : "Z",
+            "score" : 31
+        }, 
+        {
+            "date" : ISODate("2014-06-17T00:00:00.000Z"),
+            "grade" : "C",
+            "score" : 98
+        }, 
+        {
+            "date" : ISODate("2013-12-12T00:00:00.000Z"),
+            "grade" : "C",
+            "score" : 32
+        }, 
+        {
+            "date" : ISODate("2013-05-22T00:00:00.000Z"),
+            "grade" : "B",
+            "score" : 21
+        }, 
+        {
+            "date" : ISODate("2012-05-02T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 11
+        }
+    ],
+    "name" : "Bella Napoli"
+}
+
+/* 3 */
+{
+    "address" : {
+        "coord" : [ 
+            -73.9243061, 
+            40.8276297
+        ]
+    },
+    "cuisine" : "Latin (Cuban, Dominican, Puerto Rican, South & Central American)",
+    "grades" : [ 
+        {
+            "date" : ISODate("2014-04-10T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 10
+        }, 
+        {
+            "date" : ISODate("2013-10-01T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 6
+        }, 
+        {
+            "date" : ISODate("2013-04-11T00:00:00.000Z"),
+            "grade" : "B",
+            "score" : 25
+        }, 
+        {
+            "date" : ISODate("2012-10-25T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 12
+        }, 
+        {
+            "date" : ISODate("2012-10-10T00:00:00.000Z"),
+            "grade" : "P",
+            "score" : 12
+        }, 
+        {
+            "date" : ISODate("2012-05-25T00:00:00.000Z"),
+            "grade" : "B",
+            "score" : 14
+        }, 
+        {
+            "date" : ISODate("2011-09-14T00:00:00.000Z"),
+            "grade" : "B",
+            "score" : 26
+        }, 
+        {
+            "date" : ISODate("2011-04-25T00:00:00.000Z"),
+            "grade" : "C",
+            "score" : 76
+        }
+    ],
+    "name" : "El Molino Rojo Restaurant"
+}
+
+/* 4 */
+{
+    "address" : {
+        "coord" : [ 
+            -73.9461028, 
+            40.7137587
+        ]
+    },
+    "cuisine" : "Bakery",
+    "grades" : [ 
+        {
+            "date" : ISODate("2014-03-19T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 10
+        }, 
+        {
+            "date" : ISODate("2013-10-10T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 10
+        }, 
+        {
+            "date" : ISODate("2013-05-07T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 13
+        }, 
+        {
+            "date" : ISODate("2012-09-11T00:00:00.000Z"),
+            "grade" : "B",
+            "score" : 18
+        }, 
+        {
+            "date" : ISODate("2012-04-18T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 9
+        }, 
+        {
+            "date" : ISODate("2011-09-27T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 8
+        }, 
+        {
+            "date" : ISODate("2011-05-03T00:00:00.000Z"),
+            "grade" : "C",
+            "score" : 77
+        }
+    ],
+    "name" : "Fortunato Bros Cafe & Bakery"
+}
+
+/* 5 */
+{
+    "address" : {
+        "coord" : [ 
+            -73.9772294, 
+            40.7527262
+        ]
+    },
+    "cuisine" : "Italian",
+    "grades" : [ 
+        {
+            "date" : ISODate("2015-01-07T00:00:00.000Z"),
+            "grade" : "Z",
+            "score" : 20
+        }, 
+        {
+            "date" : ISODate("2014-07-03T00:00:00.000Z"),
+            "grade" : "B",
+            "score" : 14
+        }, 
+        {
+            "date" : ISODate("2013-12-21T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 13
+        }, 
+        {
+            "date" : ISODate("2013-05-17T00:00:00.000Z"),
+            "grade" : "C",
+            "score" : 76
+        }, 
+        {
+            "date" : ISODate("2012-04-20T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 12
+        }
+    ],
+    "name" : "Two Boots Grand Central"
+}/* 1 */
+{
+    "address" : {
+        "coord" : [ 
+            -73.9864626, 
+            40.7266739
+        ]
+    },
+    "cuisine" : "Indian",
+    "grades" : [ 
+        {
+            "date" : ISODate("2014-09-15T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 5
+        }, 
+        {
+            "date" : ISODate("2014-01-14T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 8
+        }, 
+        {
+            "date" : ISODate("2013-05-30T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 12
+        }, 
+        {
+            "date" : ISODate("2013-04-24T00:00:00.000Z"),
+            "grade" : "P",
+            "score" : 2
+        }, 
+        {
+            "date" : ISODate("2012-10-01T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 9
+        }, 
+        {
+            "date" : ISODate("2012-04-06T00:00:00.000Z"),
+            "grade" : "C",
+            "score" : 92
+        }, 
+        {
+            "date" : ISODate("2011-11-03T00:00:00.000Z"),
+            "grade" : "C",
+            "score" : 41
+        }
+    ],
+    "name" : "Gandhi"
+}
+
+/* 2 */
+{
+    "address" : {
+        "coord" : [ 
+            -73.984758, 
+            40.7457939
+        ]
+    },
+    "cuisine" : "Pizza/Italian",
+    "grades" : [ 
+        {
+            "date" : ISODate("2014-12-24T00:00:00.000Z"),
+            "grade" : "Z",
+            "score" : 31
+        }, 
+        {
+            "date" : ISODate("2014-06-17T00:00:00.000Z"),
+            "grade" : "C",
+            "score" : 98
+        }, 
+        {
+            "date" : ISODate("2013-12-12T00:00:00.000Z"),
+            "grade" : "C",
+            "score" : 32
+        }, 
+        {
+            "date" : ISODate("2013-05-22T00:00:00.000Z"),
+            "grade" : "B",
+            "score" : 21
+        }, 
+        {
+            "date" : ISODate("2012-05-02T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 11
+        }
+    ],
+    "name" : "Bella Napoli"
+}
+
+/* 3 */
+{
+    "address" : {
+        "coord" : [ 
+            -73.9243061, 
+            40.8276297
+        ]
+    },
+    "cuisine" : "Latin (Cuban, Dominican, Puerto Rican, South & Central American)",
+    "grades" : [ 
+        {
+            "date" : ISODate("2014-04-10T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 10
+        }, 
+        {
+            "date" : ISODate("2013-10-01T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 6
+        }, 
+        {
+            "date" : ISODate("2013-04-11T00:00:00.000Z"),
+            "grade" : "B",
+            "score" : 25
+        }, 
+        {
+            "date" : ISODate("2012-10-25T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 12
+        }, 
+        {
+            "date" : ISODate("2012-10-10T00:00:00.000Z"),
+            "grade" : "P",
+            "score" : 12
+        }, 
+        {
+            "date" : ISODate("2012-05-25T00:00:00.000Z"),
+            "grade" : "B",
+            "score" : 14
+        }, 
+        {
+            "date" : ISODate("2011-09-14T00:00:00.000Z"),
+            "grade" : "B",
+            "score" : 26
+        }, 
+        {
+            "date" : ISODate("2011-04-25T00:00:00.000Z"),
+            "grade" : "C",
+            "score" : 76
+        }
+    ],
+    "name" : "El Molino Rojo Restaurant"
+}
+
+/* 4 */
+{
+    "address" : {
+        "coord" : [ 
+            -73.9461028, 
+            40.7137587
+        ]
+    },
+    "cuisine" : "Bakery",
+    "grades" : [ 
+        {
+            "date" : ISODate("2014-03-19T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 10
+        }, 
+        {
+            "date" : ISODate("2013-10-10T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 10
+        }, 
+        {
+            "date" : ISODate("2013-05-07T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 13
+        }, 
+        {
+            "date" : ISODate("2012-09-11T00:00:00.000Z"),
+            "grade" : "B",
+            "score" : 18
+        }, 
+        {
+            "date" : ISODate("2012-04-18T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 9
+        }, 
+        {
+            "date" : ISODate("2011-09-27T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 8
+        }, 
+        {
+            "date" : ISODate("2011-05-03T00:00:00.000Z"),
+            "grade" : "C",
+            "score" : 77
+        }
+    ],
+    "name" : "Fortunato Bros Cafe & Bakery"
+}
+
+/* 5 */
+{
+    "address" : {
+        "coord" : [ 
+            -73.9772294, 
+            40.7527262
+        ]
+    },
+    "cuisine" : "Italian",
+    "grades" : [ 
+        {
+            "date" : ISODate("2015-01-07T00:00:00.000Z"),
+            "grade" : "Z",
+            "score" : 20
+        }, 
+        {
+            "date" : ISODate("2014-07-03T00:00:00.000Z"),
+            "grade" : "B",
+            "score" : 14
+        }, 
+        {
+            "date" : ISODate("2013-12-21T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 13
+        }, 
+        {
+            "date" : ISODate("2013-05-17T00:00:00.000Z"),
+            "grade" : "C",
+            "score" : 76
+        }, 
+        {
+            "date" : ISODate("2012-04-20T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 12
+        }
+    ],
+    "name" : "Two Boots Grand Central"
+}
+
+
+### querry 5 ###
+db.restaurant.find(
+    {
+        'borough': "Bronx",
+        $or: [
+           {'cuisine': "American "},
+           {'cuisine': "Chinese"}
+        ],
+    },
+    {
+        cuisine:1,
+        name:1,
+        borough:1,
+        _id:0
+     }
+)
+
+#-- output 5 --#
+/* 1 */
+{
+    "borough" : "Bronx",
+    "cuisine" : "American ",
+    "name" : "Wild Asia"
+}
+
+/* 2 */
+{
+    "borough" : "Bronx",
+    "cuisine" : "Chinese",
+    "name" : "Happy Garden"
+}
+
+/* 3 */
+{
+    "borough" : "Bronx",
+    "cuisine" : "Chinese",
+    "name" : "Happy Garden"
+}
+
+/* ... */
+
+### querry 6 ###
+db.restaurant.find(
+    {
+        'borough': { $nin: ["Staten Island", "Queens", "Bronx", "Brooklyn"] },
+    },
+    {
+        cuisine:1,
+        name:1,
+        borough:1,
+        restaurant_id:1,
+        _id:0
+     }
+)
+
+#-- output 6 --#
+/* 1 */
+{
+    "borough" : "Manhattan",
+    "cuisine" : "Irish",
+    "name" : "Dj Reynolds Pub And Restaurant",
+    "restaurant_id" : "30191841"
+}
+
+/* 2 */
+{
+    "borough" : "Manhattan",
+    "cuisine" : "American ",
+    "name" : "1 East 66Th Street Kitchen",
+    "restaurant_id" : "40359480"
+}
+
+/* 3 */
+{
+    "borough" : "Manhattan",
+    "cuisine" : "American ",
+    "name" : "Glorious Food",
+    "restaurant_id" : "40361521"
+}
+
+/* ... */
+
+
+
+### querry 7 ###
+db.restaurant.find(
+    {
+        'grades.score': {$lte: 10}
+    },
+    {
+        'cuisine':1,
+        'name':1,
+        'borough':1,
+        'restaurant_id':1,
+        _id:0
+     }
+)
+
+
+#-- output 7 --#
+* 1 */
+{
+    "borough" : "Brooklyn",
+    "cuisine" : "American ",
+    "name" : "Riviera Caterer",
+    "restaurant_id" : "40356018"
+}
+
+/* 2 */
+{
+    "borough" : "Brooklyn",
+    "cuisine" : "Hamburgers",
+    "name" : "Wendy'S",
+    "restaurant_id" : "30112340"
+}
+
+/* 3 */
+{
+    "borough" : "Manhattan",
+    "cuisine" : "Irish",
+    "name" : "Dj Reynolds Pub And Restaurant",
+    "restaurant_id" : "30191841"
+}
+
+/* ... */
+
+
+
+### querry 8 ###
+db.restaurant.find(
+    {
+        'grades.date': ISODate("2014-08-11T00:00:00Z"),
+        'grades.grade': "A",
+        'grades.score': 11
+    },
+    {
+        'name':1,
+        'grades':1,
+        'restaurant_id':1,
+        _id:0
+     }
+)
+
+
+#-- output 8 --#
+/* 1 */
+{
+    "grades" : [ 
+        {
+            "date" : ISODate("2014-08-11T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 13
+        }, 
+        {
+            "date" : ISODate("2013-07-22T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 9
+        }, 
+        {
+            "date" : ISODate("2013-03-14T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 12
+        }, 
+        {
+            "date" : ISODate("2012-07-02T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 11
+        }, 
+        {
+            "date" : ISODate("2012-02-02T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 10
+        }, 
+        {
+            "date" : ISODate("2011-08-24T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 11
+        }
+    ],
+    "name" : "Neary'S Pub",
+    "restaurant_id" : "40365871"
+}
+
+/* 2 */
+{
+    "grades" : [ 
+        {
+            "date" : ISODate("2014-08-11T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 11
+        }, 
+        {
+            "date" : ISODate("2013-12-10T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 9
+        }, 
+        {
+            "date" : ISODate("2013-06-10T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 12
+        }, 
+        {
+            "date" : ISODate("2012-06-08T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 13
+        }, 
+        {
+            "date" : ISODate("2012-01-25T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 8
+        }, 
+        {
+            "date" : ISODate("2011-09-13T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 12
+        }
+    ],
+    "name" : "Don Filippo Restaurant",
+    "restaurant_id" : "40372417"
+}
+
+/* 3 */
+{
+    "grades" : [ 
+        {
+            "date" : ISODate("2014-08-11T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 6
+        }, 
+        {
+            "date" : ISODate("2013-08-29T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 12
+        }, 
+        {
+            "date" : ISODate("2013-04-25T00:00:00.000Z"),
+            "grade" : "C",
+            "score" : 2
+        }, 
+        {
+            "date" : ISODate("2012-10-23T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 13
+        }, 
+        {
+            "date" : ISODate("2012-04-16T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 11
+        }, 
+        {
+            "date" : ISODate("2011-11-15T00:00:00.000Z"),
+            "grade" : "A",
+            "score" : 12
+        }
+    ],
+    "name" : "Mustang Sally'S Restaurant",
+    "restaurant_id" : "40397374"
+}
+
+/* ... */
+
+
+### querry 9 ###
+db.restaurant.find(
+    {
+    },
+    {
+        'name':1,
+        'cuisine':1,
+        'borough':1,
+        _id:0
+     }
+)
+.sort({cuisine:1, borough: -1})
+
+#-- output 9 --#
+/* 1 */
+{
+    "borough" : "Manhattan",
+    "cuisine" : "Afghan",
+    "name" : "Afghan Kebab House"
+}
+
+/* 2 */
+{
+    "borough" : "Manhattan",
+    "cuisine" : "Afghan",
+    "name" : "Khyber Pass"
+}
+
+/* 3 */
+{
+    "borough" : "Manhattan",
+    "cuisine" : "Afghan",
+    "name" : "Afghan Kebab House #1"
+}
+
+/* ... */
+
+
+
+### querry 10 ###
+db.restaurant.find(
+    {
+        'address.street': {$exists: 0}
+    },
+    {
+        _id:0
+     }
+)
+.count()
+
+#--output 10 --#
+0
